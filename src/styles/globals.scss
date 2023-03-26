@@ -169,33 +169,10 @@ a {
   display: grid;
 }
 
-.bar{
-  background-color: #f4f4f4;
-  border-radius: 10px;
-  padding: 1.15em 1.5em;
-
-  textarea{
-    font-family: var(--default-font);
-    background-color: transparent;
-    border: none;
-    max-width: 100%;
-    width: 100%;
-    resize: none;
-    font-size: 15px;
-    line-height: 1.5;
-    grid-area: 1 / 1 / 2 / 2;
-    transition: margin .2s ease;
-
-    &:focus{
-      outline: none;
-    }
-  }
-}
-
 .todo-list{
   display: grid;
   gap: .75em;
-  margin-top: .75em;
+  // margin-top: .75em;
 
   li{
     list-style: none;
@@ -209,7 +186,7 @@ a {
       background-color: #fff;
       gap: .75em;
       border-radius: 10px;
-      border: solid 1px #f2f2f2;
+      border: solid 1px #eee;
     }
 
     .todo-radio{

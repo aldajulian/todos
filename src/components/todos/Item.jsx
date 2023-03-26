@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import EditTodo from './Edit'
-import ShowTodo from './Show'
+import Edit from './Edit'
+import Show from './Show'
 
 const Item = ({ item, handleMessage }) => {
   const [activeTodo, setActiveTodo] = useState('')
@@ -15,9 +15,9 @@ const Item = ({ item, handleMessage }) => {
       id={item.id}
     >
       { (activeTodo === item.id) ? 
-        <EditTodo item={item} handleActive={handleActive} handleMessage={handleMessage} />
+        <Edit item={item} handleActive={handleActive} handleMessage={handleMessage} />
         :
-        <ShowTodo item={item} handleActive={handleActive} handleMessage={handleMessage} />
+        <Show item={item} handleActive={handleActive} handleMessage={handleMessage} />
       }
     </li>
   )

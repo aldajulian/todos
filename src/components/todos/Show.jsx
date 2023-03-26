@@ -32,12 +32,12 @@ const Show = ({ item, handleActive, handleMessage }) => {
       <span className='todo-radio' onClick={() => handleAction(item.id, 'done')}>
         { item.done && <Mark /> }
       </span>
-      <div className='todo-content' onClick={() => handleActive(item)}>
+      <div className={`todo-content ${item.done ? 'todo-done' : ''}`} onClick={() => handleActive(item)}>
         {item.name}
         {item.notes && <p className='todo-prev-notes'>{item.notes}</p>}
       </div>
       <div className='todo-drag' onPointerDown={(e) => controls.start(e)}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="#aaa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </div>

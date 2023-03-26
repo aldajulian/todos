@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useAtom } from 'jotai'
 import { todos_atoms } from '../utils/store'
 import Header from './Header'
-import Item from './todos/Item'
+import Item from './TodoItem'
 import { isEmpty } from 'lodash'
 
-let contentIn, contentEnd;
+let contentIn, contentOut;
 
 export default function Todos() {
   const [todos, setTodos] = useAtom(todos_atoms)
@@ -14,10 +14,10 @@ export default function Todos() {
   const audioElement = useRef();
 
   const handleMessage = (content) => {
-    // if(!dynamicClass.includes('in')){
     setDynamicClass(['in'])
 
-    clearTimeout(contentIn, contentEnd)
+    clearTimeout(contentIn)
+    clearTimeout(contentOut)
 
     setTimeout(() => {
       if(audioElement.current){
@@ -31,7 +31,7 @@ export default function Todos() {
           audio.play()
         }
       }
-    }, 50)
+    }, 100)
 
     setTimeout(() => {
       setDynamicClass(['in', 'content-in'])
@@ -42,11 +42,11 @@ export default function Todos() {
       setDynamicClass(['in'])
     }, 2400)
 
-    contentEnd = setTimeout(() => {
+    contentOut = setTimeout(() => {
       setDynamicClass([])
     }, 2600)
   }
-
+  
   let open_todos = todos.filter(todo => !todo.done)
   let completed_todos = todos.filter(todo => todo.done)
 
@@ -68,6 +68,7 @@ export default function Todos() {
                 key={item.id}
                 item={item}
                 handleMessage={handleMessage}
+                setTodos={setTodos}
               />
             )
           })}
@@ -83,6 +84,7 @@ export default function Todos() {
                   key={item.id}
                   item={item}
                   handleMessage={handleMessage}
+                  setTodos={setTodos}
                 />
               )
             })}

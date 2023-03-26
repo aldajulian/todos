@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { useState } from 'react'
-
+import { useAtom } from 'jotai'
+import { todos_atoms } from '../utils/store'
 
 const TodoCheckMart = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -10,11 +11,10 @@ const TodoCheckMart = () => (
 
 const TodoItem = (props) => {
   const item = props.item
+  const [todos, setTodos] = useAtom(todos_atoms)
   const [activeTodo, setActiveTodo] = useState('')
   const [name, setName] = useState('')
   const [notes, setNotes] = useState('')
-  const [nameHeight, setNameHeight] = useState(1); 
-  const [noteHeight, setNoteHeight] = useState(3); 
 
   const handleAction = (id, act) => {
     props.setTodos(prevState => {

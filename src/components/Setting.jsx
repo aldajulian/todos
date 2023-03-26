@@ -31,13 +31,13 @@ const Setting = ({ dropdownOpen, wrapperRef }) => {
               />
               <div className="d-flex flex-column w-100">
                 <small className='text-scnd mb-1'>Your name reflect the Avatar</small>
-                <input
+                {/* <input
                   type="text"
                   className="input-field me-auto"
                   value={setting.name}
                   placeholder="Name"
                   onChange={(e) => handleSetting('name', e.target.value)}
-                />
+                /> */}
               </div>
             </div>
           </div>

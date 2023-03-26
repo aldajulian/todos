@@ -4,7 +4,7 @@ import Mark from './Mark'
 import { useAtom } from 'jotai'
 import { todos_atoms } from '../../utils/store'
 
-const TodoItem = ({ item, handleActive, handleMessage }) => {
+const Edit = ({ item, handleActive, handleMessage }) => {
   const [todos, setTodos] = useAtom(todos_atoms)
   // const [activeTodo, setActiveTodo] = useState('')
   const [name, setName] = useState(item.name)
@@ -110,4 +110,4 @@ const TodoItem = ({ item, handleActive, handleMessage }) => {
   )
 }
 
-export default TodoItem;
+export default Edit;
