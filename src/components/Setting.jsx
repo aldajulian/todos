@@ -120,7 +120,10 @@ const Setting = ({ dropdownOpen, wrapperRef }) => {
           </div>
         </div>
       </div>
-      {dropdownOpen && <div className='modal-bg' onClick={() => setActiveTodo('')}/>}
+      <div className='modal-bg' style={{
+        visibility: dropdownOpen ? "visible" : "hidden",
+        opacity: dropdownOpen ? "1" : "0",
+      }}/>
     </>
   )
 }

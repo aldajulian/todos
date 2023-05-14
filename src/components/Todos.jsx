@@ -1,9 +1,25 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import { useAtom } from 'jotai'
 import { todos_atoms } from '../utils/store'
 import Header from './Header'
 import Item from './TodoItem'
 import { isEmpty } from 'lodash'
+import {
+  DndContext, 
+  closestCorners,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragOverlay,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {restrictToVerticalAxis, restrictToWindowEdges} from '@dnd-kit/modifiers'
 
 let contentIn, contentOut;
 
@@ -11,7 +27,18 @@ export default function Todos() {
   const [todos, setTodos] = useAtom(todos_atoms)
   const [dynamicClass, setDynamicClass] = useState([])
   const [dynamicContent, setDynamicContent] = useState([])
+  const [active, setActive] = useState(null);
   const audioElement = useRef();
+  const activeItem = useMemo(
+    () => todos.find((item) => item.id === active?.id),
+    [active, todos]
+  );
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleMessage = (content) => {
     setDynamicClass(['in'])
@@ -50,6 +77,27 @@ export default function Todos() {
   let open_todos = todos.filter(todo => !todo.done)
   let completed_todos = todos.filter(todo => todo.done)
 
+  function handleDragEnd(event) {
+    const {active, over} = event;
+    
+    if (over && active.id !== over.id) {
+      // setTodos((items) => {
+      //   const oldIndex = items.indexOf(active.id);
+      //   const newIndex = items.indexOf(over.id);
+        
+      //   return arrayMove(items, oldIndex, newIndex);
+      // });
+
+      // setTodos((items) => {
+        const oldIndex = todos.indexOf(active.id);
+        const newIndex = todos.indexOf(over.id);
+        
+        setTodos(arrayMove(todos, oldIndex, newIndex))
+      // });
+      setActive(null)
+    }
+  }
+
   return (
     <>
       <Header 
@@ -58,11 +106,11 @@ export default function Todos() {
         handleMessage={handleMessage}
       />
       <div>
-        <ul className="todo-list">
+        <div className="todo-list">
           {!open_todos.length &&
             <div className='placeholder'>Your task will be appear here</div>
           }
-          {open_todos.map((item) => {
+          {/* {open_todos.map((item) => {
             return (
               <Item
                 key={item.id}
@@ -71,10 +119,42 @@ export default function Todos() {
                 setTodos={setTodos}
               />
             )
-          })}
-        </ul>
+          })} */}
+          <DndContext 
+            sensors={sensors}
+            collisionDetection={closestCorners}
+            onDragEnd={handleDragEnd}
+            onDragStart={({ active }) => {
+              setActive(active.id)
+            }}
+            // onDragMove={() => {
+            //   debugger
+            // }}
+            modifiers={[restrictToVerticalAxis]}
+          >
+            <SortableContext 
+              items={todos}
+              strategy={verticalListSortingStrategy}
+            >
+              {todos.map(item => (
+                <Item
+                  key={item.uid}
+                  item={item}
+                  id={item}
+                  handleMessage={handleMessage}
+                  // setTodos={setTodos}
+                />
+              ))}
+            </SortableContext>
+            <DragOverlay modifiers={[restrictToWindowEdges]}>
+              {activeItem ? (
+                <Item item={active} id={active} extendClass='dragging' /> 
+              ): null}
+            </DragOverlay>
+          </DndContext>
+        </div>
       </div>
-      {!isEmpty(completed_todos) && (
+      {/* {!isEmpty(completed_todos) && (
         <div className='todos-completed'>
           <p className='text-scnd'>Completed Todos</p>
           <ul className="todo-list">
@@ -90,7 +170,7 @@ export default function Todos() {
             })}
           </ul>
         </div>
-      )}
+      )} */}
       <audio controls src={`default.mp3`} ref={audioElement} className="d-none" allow="autoplay"/>
     </>
   )

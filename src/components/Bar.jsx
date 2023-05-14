@@ -26,7 +26,8 @@ const Bar = () => {
       if (!inputValue.length) return;
 
       let newTask = {
-        id: MakeID(6),
+        uid: MakeID(6),
+        position: todos.length + 1,
         name: inputValue,
         created_at: moment()
       }

@@ -1,9 +1,11 @@
 import moment from 'moment'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useAtom } from 'jotai'
 import { todos_atoms } from '../utils/store'
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
-const TodoCheckMart = () => (
+const TodoCheckMark = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M20 6L9 17L4 12" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
@@ -15,11 +17,35 @@ const TodoItem = (props) => {
   const [activeTodo, setActiveTodo] = useState('')
   const [name, setName] = useState('')
   const [notes, setNotes] = useState('')
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    setActivatorNodeRef,
+  } = useSortable({ id: props.id });
 
-  const handleAction = (id, act) => {
-    props.setTodos(prevState => {
+  const context = useMemo(
+    () => ({
+      attributes,
+      listeners,
+      ref: setActivatorNodeRef
+    }),
+    [attributes, listeners, setActivatorNodeRef]
+  );
+
+  const style = {
+    opacity: isDragging ? 0.4 : undefined,
+    transform: CSS.Transform.toString(transform),
+    transition
+  };
+
+  const handleAction = (uid, act) => {
+    setTodos(prevState => {
       const newState = prevState.map(obj => {
-        if (obj.id === id) {
+        if (obj.uid === uid) {
           if(act === "done"){
             if(!obj.done){
               props.handleMessage("Task completed!")
@@ -44,70 +70,75 @@ const TodoItem = (props) => {
   }
 
   const handleActive = (item) => {
-    setActiveTodo(item.id)
+    setActiveTodo(item.uid)
     setName(item.name)
     setNotes(item.notes)
   }
 
-  return (
-    <li
-      key={item.id}
-      id={item.id}
-    >
-      { (activeTodo === item.id) ? (
-        <>
-          <div className='todo-form'>
-            <span className='todo-radio' onClick={() => handleAction(item.id, 'done')}>
-              { item.done && <TodoCheckMart /> }
-            </span>
-            <div className='todo-content'>
-              <textarea
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                rows='1'
-                className='todo-name'
-                autoFocus='autofocus'
-                maxLength='120'
-              />
-              <textarea
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                rows='3'
-                className='todo-notes'
-                placeholder='Add notes?'
-              />
-              <div className='todo-action'>
-                <small>Created {moment(item.created_at).fromNow()}</small>
-                { (name !== item.name || notes !== item.notes) && (
-                <div className='gap-2'>
-                  <button className='btn-plain' onClick={() => setActiveTodo('')}>Cancel</button>
-                  <button className='btn' onClick={() => handleAction(item.id, "edit")}>Save</button>
-                </div>
-                )}
+  if(activeTodo === item.uid){
+    return (
+      <div className="todo-item">
+        <div className='todo-form'>
+          <span className='todo-radio' onClick={() => handleAction(item.uid, 'done')}>
+            { item.done && <TodoCheckMark /> }
+          </span>
+          <div className='todo-content'>
+            <textarea
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              rows='1'
+              className='todo-name'
+              autoFocus='autofocus'
+              maxLength='120'
+            />
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows='3'
+              className='todo-notes'
+              placeholder='Add notes?'
+            />
+            <div className='todo-action'>
+              <small>Created {moment(item.created_at).fromNow()}</small>
+              { (name !== item.name || notes !== item.notes) && (
+              <div className='gap-2'>
+                <button className='btn-plain' onClick={() => setActiveTodo('')}>Cancel</button>
+                <button className='btn' onClick={() => handleAction(item.uid, "edit")}>Save</button>
               </div>
+              )}
             </div>
           </div>
-          <div className='todo-bg' onClick={() => setActiveTodo('')}/>
-        </>
-      ) : (
-        <div className='todo-front'>
-          <span className='todo-radio' onClick={() => handleAction(item.id, 'done')}>
-            { item.done && <TodoCheckMart /> }
+        </div>
+        <div className='todo-bg' onClick={() => setActiveTodo('')} style={{
+          visibility: activeTodo === item.uid ? "visible" : "hidden",
+        }}/>
+      </div>
+    )
+  }else{
+    return (
+      <div className="todo-item" {...context}>
+        <div className={`todo-front ${props.extendClass} ${isDragging && 'is-dragging'}`} style={style}
+          ref={setNodeRef}
+          key={item.uid}>
+          <span className='todo-radio' onClick={() => handleAction(item.uid, 'done')}>
+            { item.done && <TodoCheckMark /> }
           </span>
           <div className='todo-content' onClick={() => handleActive(item)}>
             {item.name}
             {item.notes && <p className='todo-prev-notes'>{item.notes}</p>}
           </div>
-          <div className='todo-drag' onPointerDown={(e) => controls.start(e)}>
+          <div className='todo-drag'
+          {...attributes}
+          {...listeners}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="#aaa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <span className='task-date'>{moment(item.created_at).fromNow()}</span>
+          {/* <span className='task-date'>{moment(item.created_at).fromNow()}</span> */}
         </div>
-      )}
-    </li>
-  )
+      </div>
+    )
+  }
 }
 
 export default TodoItem;

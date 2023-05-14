@@ -231,16 +231,12 @@
 
 .account-drop{
   width: 100%;
-  max-width: 460px;
+  max-width: 440px;
   background: #fff;
-  // position: absolute;
   position: fixed;
-  // right: 0;
   border-radius: 16px;
-  // // box-shadow: rgb(31 34 37 / 9%) 0px 0px 0px 1px, rgb(0 0 0 / 8%) 0px 12px 24px -4px, rgb(0 0 0 / 4%) 0px 8px 16px -4px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 10%), 0 4px 40px rgb(0 0 0 / 8%);
   padding: 8px 2em;
-  // top: 120%;
   transition: all 0.25s ease;
   opacity: 0;
   visibility: hidden;
@@ -251,6 +247,8 @@
   right: auto;
   margin: auto;
   z-index: 20;
+  max-height: 500px;
+  overflow-y: scroll;
 
   &.is-open{
     opacity: 1;

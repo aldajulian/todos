@@ -174,7 +174,7 @@ a {
   gap: .75em;
   // margin-top: .75em;
 
-  li{
+  .todo-item{
     list-style: none;
 
     .todo-front{
@@ -186,7 +186,22 @@ a {
       background-color: #fff;
       gap: .75em;
       border-radius: 10px;
-      border: solid 1px #eee;
+      // border: solid 1px #eee;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+
+      &.dragging{
+        box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.1) 0px 4px 10px;
+        transform: translate3d(0px, 0px, 0px) scale(1.05, 1.05);
+      }
+
+      &.is-dragging{
+        box-shadow: 0 0 0 1px rgba(255,165,0,1);
+        background-color: rgba(255,165,0,0.1);
+
+        *{
+          opacity: 0;
+        }
+      }
     }
 
     .todo-radio{
@@ -227,6 +242,7 @@ a {
       color: #777;
       font-size: 13px;
       line-height: 1.5;
+      word-break: break-word;
     }
 
     .todo-drag{
@@ -354,6 +370,10 @@ a {
     &:hover{
       .todo-front{
         background-color: #fafafa;
+
+        &.dragging{
+          background-color: #fff;
+        }
       }
 
       .todo-content{
@@ -390,6 +410,8 @@ a {
   left: 0;
   background: rgba(255,255,255,0.85);
   z-index: 9;
+  transition: all 0.3s ease;
+  visibility: hidden;
 }
 
 .modal-bg{
@@ -400,6 +422,9 @@ a {
   left: 0;
   background: rgba(0,0,0,0.3);
   z-index: 9;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .switch {
