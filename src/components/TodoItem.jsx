@@ -27,17 +27,8 @@ const TodoItem = (props) => {
     setActivatorNodeRef,
   } = useSortable({ id: props.id });
 
-  const context = useMemo(
-    () => ({
-      attributes,
-      listeners,
-      ref: setActivatorNodeRef
-    }),
-    [attributes, listeners, setActivatorNodeRef]
-  );
-
   const style = {
-    opacity: isDragging ? 0.4 : undefined,
+    opacity: (isDragging && props.id) ? 0.3 : undefined,
     transform: CSS.Transform.toString(transform),
     transition
   };
@@ -94,18 +85,18 @@ const TodoItem = (props) => {
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              rows='3'
+              rows='4'
               className='todo-notes'
               placeholder='Add notes?'
             />
             <div className='todo-action'>
               <small>Created {moment(item.created_at).fromNow()}</small>
-              { (name !== item.name || notes !== item.notes) && (
+              {/* { (name !== item.name || notes !== item.notes) && ( */}
               <div className='gap-2'>
-                <button className='btn-plain' onClick={() => setActiveTodo('')}>Cancel</button>
+                <button className='btn-plain' onClick={() => setActiveTodo('')}>Back</button>
                 <button className='btn' onClick={() => handleAction(item.uid, "edit")}>Save</button>
               </div>
-              )}
+              {/* )} */}
             </div>
           </div>
         </div>
@@ -116,8 +107,8 @@ const TodoItem = (props) => {
     )
   }else{
     return (
-      <div className="todo-item" {...context}>
-        <div className={`todo-front ${props.extendClass} ${isDragging && 'is-dragging'}`} style={style}
+      <div className="todo-item">
+        <div className={`todo-front ${props.extendClass} ${(isDragging && props.id) && 'is-dragging'}`} style={style}
           ref={setNodeRef}
           key={item.uid}>
           <span className='todo-radio' onClick={() => handleAction(item.uid, 'done')}>
@@ -127,9 +118,7 @@ const TodoItem = (props) => {
             {item.name}
             {item.notes && <p className='todo-prev-notes'>{item.notes}</p>}
           </div>
-          <div className='todo-drag'
-          {...attributes}
-          {...listeners}>
+          <div className='todo-drag' {...attributes} {...listeners}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 15L12 20L17 15M7 9L12 4L17 9" stroke="#aaa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

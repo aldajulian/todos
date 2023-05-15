@@ -42,10 +42,10 @@ const Header = ({
           {/* <p>{todos.length ? `${todos.length} open task` : 'No task'}</p> */}
         </div>
         <div className="header-action">
-          <div className='notification'>
+          {/* <div className='notification'>
             <Icon name='notification' stroke='#666' strokeWidth={1.5} size={22} />
             <span>1</span>
-          </div>
+          </div> */}
           <div className="account-avatar" onClick={() => setDropdownOpen(!dropdownOpen)}>
             <Avatar
               size={40}

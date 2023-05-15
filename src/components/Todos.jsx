@@ -133,10 +133,10 @@ export default function Todos() {
             modifiers={[restrictToVerticalAxis]}
           >
             <SortableContext 
-              items={todos}
+              items={open_todos}
               strategy={verticalListSortingStrategy}
             >
-              {todos.map(item => (
+              {open_todos.map(item => (
                 <Item
                   key={item.uid}
                   item={item}
@@ -154,23 +154,45 @@ export default function Todos() {
           </DndContext>
         </div>
       </div>
-      {/* {!isEmpty(completed_todos) && (
+      {!isEmpty(completed_todos) && (
         <div className='todos-completed'>
           <p className='text-scnd'>Completed Todos</p>
-          <ul className="todo-list">
-            {completed_todos.map((item) => {
-              return (
-                <Item
-                  key={item.id}
-                  item={item}
-                  handleMessage={handleMessage}
-                  setTodos={setTodos}
-                />
-              )
-            })}
-          </ul>
+          <div className="todo-list">
+            <DndContext 
+              sensors={sensors}
+              collisionDetection={closestCorners}
+              onDragEnd={handleDragEnd}
+              onDragStart={({ active }) => {
+                setActive(active.id)
+              }}
+              // onDragMove={() => {
+              //   debugger
+              // }}
+              modifiers={[restrictToVerticalAxis]}
+            >
+              <SortableContext 
+                items={completed_todos}
+                strategy={verticalListSortingStrategy}
+              >
+                {completed_todos.map(item => (
+                  <Item
+                    key={item.uid}
+                    item={item}
+                    id={item}
+                    handleMessage={handleMessage}
+                    // setTodos={setTodos}
+                  />
+                ))}
+              </SortableContext>
+              <DragOverlay modifiers={[restrictToWindowEdges]}>
+                {activeItem ? (
+                  <Item item={active} id={active} extendClass='dragging' /> 
+                ): null}
+              </DragOverlay>
+            </DndContext>
+          </div>
         </div>
-      )} */}
+      )}
       <audio controls src={`default.mp3`} ref={audioElement} className="d-none" allow="autoplay"/>
     </>
   )
