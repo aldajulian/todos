@@ -130,7 +130,7 @@ export default function Todos() {
             // onDragMove={() => {
             //   debugger
             // }}
-            modifiers={[restrictToVerticalAxis]}
+            // modifiers={[restrictToVerticalAxis]}
           >
             <SortableContext 
               items={open_todos}
@@ -146,7 +146,7 @@ export default function Todos() {
                 />
               ))}
             </SortableContext>
-            <DragOverlay modifiers={[restrictToWindowEdges]}>
+            <DragOverlay>
               {activeItem ? (
                 <Item item={active} id={active} extendClass='dragging' /> 
               ): null}

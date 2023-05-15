@@ -13,6 +13,7 @@
 // }
 
 @import 'header';
+@import 'list';
 
 * {
   box-sizing: border-box;
@@ -122,10 +123,13 @@ a {
       border-radius: 10px;
       // border: solid 1px #eee;
       box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none;
 
       &.dragging{
-        box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.1) 0px 4px 10px;
+        box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.05) 0px 4px 10px;
         transform: translate3d(0px, 0px, 0px) scale(1.03, 1.03);
+        opacity: 0.9;
       }
 
       &.is-dragging{
@@ -219,18 +223,11 @@ a {
       padding: .35rem 1rem;
       border-radius: var(--item-border-radius);
       background-color: #fff;
-      border: solid 1px #efefef;
+      box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.05) 0px 4px 10px;
       z-index: 10;
-      border-radius: 10px;
-      // transition: all .3s ease;
+      border-radius: 12px;
       margin: 0 -10px;
       width: calc(100% + 20px);
-      // transform-origin: 0 0;
-      // transform: scaleX(1.1);
-
-      // .todo-radio{
-      //   margin-top: .25rem;
-      // }
 
       .todo-content{
         cursor: default;
@@ -252,12 +249,12 @@ a {
 
       .todo-name{
         margin-top: -3px;
-        font-size: 15px;
+        font-size: 16px;
       }
 
       .todo-notes{
         color: #666;
-        font-size: 14px;
+        font-size: 16px;
       }
     }
 
@@ -359,13 +356,15 @@ a {
 
 .todo-bg{
   @include overlay;
-  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba(255,255,255,0.72);
   z-index: 9;
 }
 
 .modal-bg{
   @include overlay;
   background: rgba(0,0,0,0.3);
+  backdrop-filter: saturate(180%) blur(20px);
   z-index: 9;
   opacity: 0;
 }

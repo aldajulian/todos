@@ -16,6 +16,7 @@
     "boring-avatars": "^1.7.0",
     "framer-motion": "^9.0.2",
     "jotai": "^2.0.1",
+    "json-loader": "^0.5.7",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "react": "^18.2.0",

@@ -1,0 +1,40 @@
+{
+  "writings": [
+    {
+      "key": "wr-23",
+      "year": "15 May 23",
+      "collections": [
+        {
+          "title": "Drag n drop, repositioning your task priority!"
+        },
+        {
+          "title": "Task or Todo? we work for both!"
+        }
+      ]
+    },
+    {
+      "key": "wr-23",
+      "year": "5 Apr 23",
+      "collections": [
+        {
+          "title": "Notification island or Toast"
+        }
+      ]
+    },
+    {
+      "key": "wr-23",
+      "year": "1 Apr 23",
+      "collections": [
+        {
+          "title": "Simple, Minimalist, Feature rich."
+        },
+        {
+          "title": "Your name reflect the Avatar"
+        },
+        {
+          "title": "Say hello to simple, easy to use task site"
+        }
+      ]
+    }
+  ]
+}

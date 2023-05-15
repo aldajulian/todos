@@ -1,0 +1,79 @@
+
+
+.list-indent {
+  padding: 0;
+  margin-top: 1em;
+
+  li{
+    list-style: none;
+    position: relative;
+    border-top: solid 1px #e8e8e8;
+
+    span.list-year{
+      position: absolute;
+      padding: .85em 0;
+      color: #8f8f8f;
+    }
+
+    .list-indent-item{
+      transition: all 0.2s ease;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      cursor: pointer;
+
+      .list-content{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        width: calc(100% - 20%);
+        padding: .85em 0;
+        margin-left: 20%;
+
+        &:before{
+          content: '';
+          display: block;
+          position: absolute;
+          left: -50%;
+          top: 0;
+          height: 100%;
+          width: 100%;
+        }
+
+        &:not(:last-child){
+          border-bottom: solid 1px #e8e8e8;
+        }
+
+        &:hover{
+          .list-title, .date{
+            opacity: 1;
+          }
+        }
+        
+        .list-title, .date{
+          transition: all 0.3s ease;
+          white-space: pre-line;
+        }
+      }
+    }
+  }
+
+  &:hover{
+    .list-indent-item{
+      .list-content{
+        .list-title, .date{
+          opacity: 0.3;
+        };
+      }
+    }
+  }
+}
+
+
+
+.date{
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 300;
+}

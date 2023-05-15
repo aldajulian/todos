@@ -74,7 +74,7 @@ const Bar = () => {
       />
       <span className="counter">
         <span>{counter} / 130</span>
-        <span className='bar-helper'>{help && 'Press Enter to add task'}</span>
+        <span className='bar-helper'>{help && 'Press Enter to add'}</span>
       </span>
     </div>
   )
