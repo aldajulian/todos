@@ -40,7 +40,6 @@ const strokeAttributes = {
   strokeLinejoin: "round"
 }
 
-
 export const IconHome = ({ stroke, strokeWidth }) => {
   return (
     <path

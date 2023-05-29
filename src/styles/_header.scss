@@ -4,6 +4,17 @@
   flex-direction: column;
   width: 100%;
   gap: 1.75rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  margin: 0 auto;
+  position: fixed;
+  max-width: 540px;
+  padding: 3em 20px 20px;
+  background-color: #fff;
+  mask-image: linear-gradient(#000 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(#000 90%, transparent 100%);
 }
 
 .header-content{
@@ -34,7 +45,7 @@
   width: 100%;
   background-color: #f4f4f4;
   border-radius: 12px;
-  padding: 1.15em 1.5em;
+  padding: 1em 1.5em;
 
   textarea{
     font-family: var(--default-font);
@@ -297,4 +308,13 @@
       }
     }
   }
+}
+
+[data-sonner-toast][data-styled=true]{
+  background: #212121;
+  color: #fff;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
 }

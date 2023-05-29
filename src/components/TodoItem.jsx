@@ -24,7 +24,6 @@ const TodoItem = (props) => {
     transform,
     transition,
     isDragging,
-    setActivatorNodeRef,
   } = useSortable({ id: props.id });
 
   const style = {

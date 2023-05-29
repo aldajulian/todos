@@ -2,8 +2,9 @@ import { useState, useRef, useMemo } from 'react'
 import { useAtom } from 'jotai'
 import { todos_atoms } from '../utils/store'
 import Header from './Header'
-import Item from './TodoItem'
+import Item from './todos/Item'
 import { isEmpty } from 'lodash'
+import { Toaster, toast } from 'sonner'
 import {
   DndContext, 
   closestCorners,
@@ -81,19 +82,12 @@ export default function Todos() {
     const {active, over} = event;
     
     if (over && active.id !== over.id) {
-      // setTodos((items) => {
-      //   const oldIndex = items.indexOf(active.id);
-      //   const newIndex = items.indexOf(over.id);
+      setTodos((items) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
         
-      //   return arrayMove(items, oldIndex, newIndex);
-      // });
-
-      // setTodos((items) => {
-        const oldIndex = todos.indexOf(active.id);
-        const newIndex = todos.indexOf(over.id);
-        
-        setTodos(arrayMove(todos, oldIndex, newIndex))
-      // });
+        return arrayMove(items, oldIndex, newIndex);
+      });
       setActive(null)
     }
   }
@@ -104,22 +98,13 @@ export default function Todos() {
         dynamicClass={dynamicClass}
         dynamicContent={dynamicContent}
         handleMessage={handleMessage}
+        useBar={true}
       />
       <div>
         <div className="todo-list">
           {!open_todos.length &&
             <div className='placeholder'>Your task will be appear here</div>
           }
-          {/* {open_todos.map((item) => {
-            return (
-              <Item
-                key={item.id}
-                item={item}
-                handleMessage={handleMessage}
-                setTodos={setTodos}
-              />
-            )
-          })} */}
           <DndContext 
             sensors={sensors}
             collisionDetection={closestCorners}
@@ -127,10 +112,6 @@ export default function Todos() {
             onDragStart={({ active }) => {
               setActive(active.id)
             }}
-            // onDragMove={() => {
-            //   debugger
-            // }}
-            // modifiers={[restrictToVerticalAxis]}
           >
             <SortableContext 
               items={open_todos}
@@ -142,7 +123,6 @@ export default function Todos() {
                   item={item}
                   id={item}
                   handleMessage={handleMessage}
-                  // setTodos={setTodos}
                 />
               ))}
             </SortableContext>
@@ -174,7 +154,7 @@ export default function Todos() {
                 items={completed_todos}
                 strategy={verticalListSortingStrategy}
               >
-                {completed_todos.map(item => (
+                {completed_todos.map((item) => (
                   <Item
                     key={item.uid}
                     item={item}
@@ -193,6 +173,7 @@ export default function Todos() {
           </div>
         </div>
       )}
+      <Toaster position="bottom-center" />
       <audio controls src={`default.mp3`} ref={audioElement} className="d-none" allow="autoplay"/>
     </>
   )

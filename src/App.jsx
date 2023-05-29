@@ -1,13 +1,15 @@
 import { useState, useRef } from 'react'
+import { Route, Routes } from "react-router-dom"
 import Todos from './components/Todos'
 import ChangeLog from './changelog'
 
-function App() {
-
+export function App() {
   return (
     <div className="todos">
-      <Todos/>
-      <ChangeLog/>
+      <Routes>
+        <Route path="/" element={<Todos />} />
+        <Route path="/changelog" element={<ChangeLog />} />
+      </Routes>
     </div>
   )
 }

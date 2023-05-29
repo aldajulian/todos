@@ -2,37 +2,54 @@
   "writings": [
     {
       "key": "wr-23",
-      "year": "15 May 23",
+      "year": "May 23",
       "collections": [
         {
-          "title": "Drag n drop, repositioning your task priority!"
+          "id": "may-23",
+          "title": "Delete the task",
+          "content": "Longest feature to add, but it's not to late"
         },
         {
-          "title": "Task or Todo? we work for both!"
+          "id": "may-2",
+          "title": "Drag n drop, repositioning your task priority!",
+          "content": "Add React DnD Kit for flexible repositioning task priority, smooth for both Desktop and Mobile"
+        },
+        {
+          "id": "may-1",
+          "title": "Task or Todo? we work for both!",
+          "content": "Add React DnD Kit for flexible repositioning task priority, smooth for both Desktop and Mobile"
         }
       ]
     },
     {
       "key": "wr-23",
-      "year": "5 Apr 23",
+      "year": "Apr 23",
       "collections": [
         {
-          "title": "Notification island or Toast"
+          "id": "apr-1",
+          "title": "Notification island or Toast",
+          "content": "Add React DnD Kit for flexible repositioning task priority, smooth for both Desktop and Mobile"
         }
       ]
     },
     {
       "key": "wr-23",
-      "year": "1 Apr 23",
+      "year": "Mar 23",
       "collections": [
         {
-          "title": "Simple, Minimalist, Feature rich."
+          "id": "mar-3",
+          "title": "Simple, Minimalist, Feature rich.",
+          "content": "Add React DnD Kit for flexible repositioning task priority, smooth for both Desktop and Mobile"
         },
         {
-          "title": "Your name reflect the Avatar"
+          "id": "mar-2",
+          "title": "Your name reflect the Avatar",
+          "content": "Add React DnD Kit for flexible repositioning task priority, smooth for both Desktop and Mobile"
         },
         {
-          "title": "Say hello to simple, easy to use task site"
+          "id": "mar-1",
+          "title": "Say hello to simple, easy to use task site",
+          "content": "Add React DnD Kit for flexible repositioning task priority, smooth for both Desktop and Mobile"
         }
       ]
     }

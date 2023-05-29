@@ -39,18 +39,21 @@ const Bar = () => {
       setInputBar('')
       setCounter(0)
       setHelp(false)
+      inputRef.current.blur()
     }
   }
 
   const debouncedHelp = useCallback(debounce(() => {
     setHelp(true)
-  }, 500), [])
+  }, 1000), [])
 
   const onChange = e => {
-    setInputBar(e.target.value);
-    setCounter(e.target.value.length)
+    let inputValue = e.target.value
+    setInputBar(inputValue)
+    setCounter(inputValue.length)
+    setHelp(false)
 
-    if(e.target.value.length) {
+    if(inputValue.length) {
       debouncedHelp()
     }else{
       setHelp(false)
@@ -68,13 +71,13 @@ const Bar = () => {
         value={inputBar}
         onKeyDown={(e) => handleKey(e)}
         onChange={onChange}
-        onBlur={() => {setHelp(false), setFocus(false)}}
+        onBlur={() => { setHelp(false), setFocus(false)} }
         onFocus={() => setFocus(true)}
         maxLength='130'
       />
       <span className="counter">
         <span>{counter} / 130</span>
-        <span className='bar-helper'>{help && 'Press Enter to add'}</span>
+        <span className='bar-helper'>{help && 'Press Enter to add task'}</span>
       </span>
     </div>
   )

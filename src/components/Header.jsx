@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Avatar from "boring-avatars";
-import { Icon } from "./Icons"
 import { useAtom } from 'jotai'
-import { todos_atoms, setting_atoms } from '../utils/store'
+import { setting_atoms } from '../utils/store'
 import Bar from './Bar'
 import Setting from './Setting'
 import moment from "moment";
@@ -10,7 +9,7 @@ import moment from "moment";
 const Header = ({
   dynamicClass,
   dynamicContent,
-  handleMessage,
+  useBar
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [setting] = useAtom(setting_atoms)
@@ -39,7 +38,6 @@ const Header = ({
         <div className="header-info">
           <h3>Home</h3>
           <p>{moment().format("ddd – DD MMM, YYYY") }</p>
-          {/* <p>{todos.length ? `${todos.length} open task` : 'No task'}</p> */}
         </div>
         <div className="header-action">
           {/* <div className='notification'>
@@ -54,14 +52,16 @@ const Header = ({
               colors={["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
             />
 
-            <div className={`dynamic-notif ${dynamicClass.join(' ')}`}>
-              <div className="dynamic-content">{dynamicContent}</div>
-            </div>
+            {dynamicContent && (
+              <div className={`dynamic-notif ${dynamicClass.join(' ')}`}>
+                <div className="dynamic-content">{dynamicContent}</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <Bar/>
-      <Setting dropdownOpen={dropdownOpen} wrapperRef={wrapperRef}/>
+      {useBar && <Bar/>}
+      {/* <Setting dropdownOpen={dropdownOpen} wrapperRef={wrapperRef}/> */}
     </div>
   )
 }

@@ -11,8 +11,10 @@
 
     span.list-year{
       position: absolute;
-      padding: .85em 0;
+      padding: 1.15em 0;
       color: #8f8f8f;
+      font-size: 12px;
+      transition: all 0.3s ease;
     }
 
     .list-indent-item{
@@ -23,13 +25,16 @@
       align-items: flex-start;
       cursor: pointer;
 
-      .list-content{
+      .list-item{
         position: relative;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        width: calc(100% - 20%);
+        width: calc(100% - 18%);
         padding: .85em 0;
-        margin-left: 20%;
+        margin-left: 18%;
+        transition: all 0.3s ease;
+        overflow: hidden;
 
         &:before{
           content: '';
@@ -55,16 +60,52 @@
           transition: all 0.3s ease;
           white-space: pre-line;
         }
+
+        .list-content{
+          font-size: 13px;
+          color: #666;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(20px);
+          transition: all 0.4s ease;
+          max-height: 0;
+        }
       }
     }
   }
 
   &:hover{
+    .list-year{
+      opacity: 0.15;
+    }
+  }
+
+  &:hover,
+  &.list-open{
+    li:hover{
+      .list-year{
+        opacity: 1;
+      }
+    }
     .list-indent-item{
-      .list-content{
+      .list-item{
         .list-title, .date{
-          opacity: 0.3;
-        };
+          opacity: 0.15;
+        }
+
+        &.list-open{
+          padding-bottom: 1.5em;
+          .list-title, .date{
+            opacity: 1;
+          }
+          .list-content{
+            // padding-top: 1em;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(10px);
+            max-height: 300px;
+          }
+        }
       }
     }
   }
