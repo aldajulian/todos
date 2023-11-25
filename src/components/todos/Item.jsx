@@ -22,7 +22,7 @@ const Item = ({ id, item, handleMessage, extendClass }) => {
   } = useSortable({ id: id })
 
   const style = {
-    opacity: (isDragging && id) ? 0.3 : undefined,
+    opacity: (isDragging && id) ? 0.8 : undefined,
     transform: CSS.Transform.toString(transform),
     transition
   }
@@ -103,7 +103,9 @@ const Item = ({ id, item, handleMessage, extendClass }) => {
         />
       </div>
     )
-  } else {
+  }
+
+  if (activeTodo !== item.uid) {
     return (
       <div
         key={item.id}

@@ -5,6 +5,7 @@ export const completed_atoms = atomWithStorage('completed', [])
 export const deleted_atoms = atomWithStorage('deleted', [])
 export const setting_atoms = atomWithStorage('setting', {
   theme: "default",
+  color_scheme: "light",
   name: "",
   use_collection: false,
   separate_done: false,

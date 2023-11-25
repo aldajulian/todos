@@ -1,0 +1,118 @@
+.landing{
+  width: 100%;
+  margin: 0 auto;
+  gap: 2em;
+  display: grid;
+}
+
+.landing-greatings{
+  max-width: 560px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 14.5em 1em 0;
+
+  h1 {
+    margin-bottom: .85em;
+  }
+
+  p {
+    color: #666;
+    line-height: 1.75;
+    font-size: 14px;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word; 
+  }
+
+  .btn-black{
+    margin-top: 1.5em;
+  }
+}
+
+.landing-showcase{
+  padding: 8em 1em 0;
+  margin: auto 0;
+  width: 100%;
+  overflow: hidden;
+  position: sticky;
+  bottom: 0;
+
+  .todo-list{
+    display: flex;
+    margin: 0 auto 0;
+    flex-direction: column;
+  }
+
+  .first-section {
+    display: flex;
+    flex-direction: row;
+    flex: 0 1 auto;
+    justify-content: center;
+  }
+
+  .todo-item{
+    margin: 0.65em;
+    border-radius: 10px;
+    width: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+    .todo-box{
+      &::before {
+        display: none;
+      }
+    }
+
+    .todo-front {
+      padding: 0 0.85em 0 0.75em;
+    }
+
+    .todo-form {
+      margin: 0;
+      width: 100%;
+    }
+
+    .todo-content{
+      white-space: nowrap;
+    }
+  }
+}
+
+.section-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  flex: 0 1 auto;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.align-items-end{
+  align-items: end;
+}
+
+.align-items-start{
+  align-items: start;
+}
+
+.align-items-center{
+  align-items: center !important;
+}
+
+.justify-content-start{
+  justify-content: start;
+}
+
+.g-2{
+  gap: .5em;
+}
+
+@media screen and (max-width: 980px) {
+  .landing-greatings, .landing-showcase{
+    padding-top: 5em;
+  }
+}

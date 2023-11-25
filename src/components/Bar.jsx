@@ -39,7 +39,7 @@ const Bar = () => {
       setInputBar('')
       setCounter(0)
       setHelp(false)
-      inputRef.current.blur()
+      // inputRef.current.blur()
     }
   }
 

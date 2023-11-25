@@ -1,6 +1,7 @@
 import moment from 'moment'
 import { useState, useEffect, useRef } from 'react'
 import Mark from './Mark'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Edit = ({
   item,
@@ -78,16 +79,20 @@ const Edit = ({
           </div>
         </div>
       </div>
-      <div className='todo-form todo-confirm'>
-        <h3>Are you sure?</h3>
-        <p>this task won't be back, are you sure want to delete this task?</p>
-        <div className='todo-action'>
-          <div className='gap-2'>
-            <button className='btn-plain' onClick={() => setDeletePromt(false)}>Back</button>
-            <button className='btn btn-warning' onClick={() => handleDelete()}>Sure!</button>
-          </div>
-        </div>
-      </div>
+      <AnimatePresence>
+        { deletePromt && (
+          <motion.div className='todo-confirm' initial={{ opacity: 0, y: "-30%" }} transition={{ duration: 0.1 }} animate={{ opacity: 1, y: "-50%" }}>
+            <h3>Are you sure?</h3>
+            <p>this task won't be back, are you sure want to delete this task?</p>
+            <div className='todo-action'>
+              <div className='gap-2'>
+                <button className='btn-plain' onClick={() => setDeletePromt(false)}>Back</button>
+                <button className='btn btn-warning' onClick={() => handleDelete()}>Sure!</button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className='todo-bg' onClick={() => handleActive('')} style={{
         visibility: activeTodo === item.uid ? "visible" : "hidden",
       }}/>

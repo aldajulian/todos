@@ -27,7 +27,7 @@ const TodoItem = (props) => {
   } = useSortable({ id: props.id });
 
   const style = {
-    opacity: (isDragging && props.id) ? 0.3 : undefined,
+    opacity: (isDragging && props.id) ? 0.8 : undefined,
     transform: CSS.Transform.toString(transform),
     transition
   };

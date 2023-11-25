@@ -7,15 +7,23 @@
   --default-font: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --grey2: #666;
   --grey3: #aaa;
+  --todo-bg: #fff;
+  --todo-bg-hover: #fafafa;
+  --color: #111;
 }
 
-// @media (prefers-color-scheme: dark) {
-//   :root {
-//   }
-// }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --todo-bg: #202020;
+    --todo-bg-hover: #2b2b2b;
+    --color: #fff;
+  }
+}
 
 @import 'header';
 @import 'list';
+@import 'todos';
+@import 'radix';
 
 * {
   box-sizing: border-box;
@@ -30,7 +38,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-size: 14px;
-  color: #111;
+  color: var(--color);
   line-height: 1.5;
 }
 
@@ -48,7 +56,7 @@ hr{
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
-  color: #111;
+  color: var(--color);
 }
 
 a {
@@ -62,6 +70,15 @@ a {
 
 .text-scnd{
   color: var(--grey2);
+}
+
+
+.text-third{
+  color: var(--grey3);
+}
+
+.text-center{
+  text-align: center;
 }
 
 .flex-column{
@@ -103,235 +120,11 @@ a {
 
 .todos{
   width: 100%;
-  max-width: 540px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 14em 20px;
+  padding: 14.5em 20px;
   gap: 2em;
   display: grid;
-}
-
-.todo-list{
-  display: grid;
-  gap: .75em;
-  // margin-top: .75em;
-
-  .todo-item{
-    list-style: none;
-
-    .todo-front{
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      position: relative;
-      padding-left: .75rem;
-      background-color: #fff;
-      gap: .75em;
-      border-radius: 10px;
-      // border: solid 1px #eee;
-      user-select: none;
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
-      -webkit-tap-highlight-color: transparent;
-
-      &.dragging{
-        box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.05) 0px 4px 10px;
-        transform: translate3d(0px, 0px, 0px) scale(1.03, 1.03);
-        opacity: 0.9;
-      }
-
-      &.is-dragging{
-        box-shadow: 0 0 0 1px rgba(255,165,0,1);
-        background-color: rgba(255,165,0,0.15);
-
-        *{
-          opacity: 0;
-        }
-      }
-    }
-
-    .todo-radio{
-      display: flex;
-      flex: 0 0 auto;
-      height: 20px;
-      width: 20px;
-      border: solid 1px #ddd;
-      border-radius: 6px;
-      background-color: #fff;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: .75rem;
-
-      &:hover{
-        border-color: #aaa;
-        box-shadow: 0px 1px 2px rgb(0 0 0 / 8%);
-      }
-    }
-
-    .todo-content {
-      display: flex;
-      flex-direction: column;
-      flex: 1 1 0;
-      cursor: pointer;
-      user-select: none;
-      padding-top: .1rem;
-      font-size: 15px;
-      padding: 0.7rem 0 0.65rem;
-      transition: all 0.3s ease;
-      word-break: break-word;
-    }
-
-    .todo-prev-notes{
-      margin-top: 0.25rem;
-      color: #777;
-      font-size: 13px;
-      line-height: 1.5;
-      word-break: break-word;
-      white-space: pre-line;
-      max-height: 100px;
-      overflow: hidden;
-    }
-
-    .todo-drag{
-      opacity: 0;
-      display: flex;
-      align-items: center;
-      cursor: grab;
-      padding: .85rem;
-      touch-action: none;
-      border-radius: 5px;
-      border: none;
-      outline: none;
-      transition: all 0.2s ease;
-      appearance: none;
-      background-color: transparent;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .todo-action{
-      display: flex;
-      gap: .15rem;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1em;
-      min-height: 33px;
-
-      small{
-        color: #aaa;
-      }
-    }
-
-    .todo-form{
-      position: relative;
-      cursor: default;
-      display: flex;
-      gap: .75em;
-      padding: .35rem 1rem;
-      border-radius: var(--item-border-radius);
-      background-color: #fff;
-      box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.05) 0px 4px 10px;
-      z-index: 10;
-      border-radius: 12px;
-      margin: 0 -10px;
-      width: calc(100% + 20px);
-      transition: all 0.3s ease;
-      // max-height: 500px;
-
-      .todo-content{
-        cursor: default;
-      }
-
-      .todo-name,
-      .todo-notes{
-        font-family: var(--default-font);
-        border: none;
-        resize: none;
-        background-color: #fff;
-        border-radius: 6px;
-        padding: .25rem;
-
-        &:focus {
-          outline: none;
-        }
-      }
-
-      .todo-name{
-        margin-top: -3px;
-        font-size: 16px;
-      }
-
-      .todo-notes{
-        color: #666;
-        font-size: 16px;
-      }
-    }
-
-    .task-date{
-      position: absolute;
-      right: 0;
-      top: 50%;
-      font-size: 12px;
-      color: #aaa;
-      opacity: 0;
-      transition: all 0.3s ease;
-      transform: translateY(-50%) translateX(110%);
-      visibility: hidden;
-      filter: blur(3px);
-    }
-
-    .todo-confirm{
-      opacity: 0;
-      position: absolute;
-      // bottom: -2em;
-      visibility: hidden;
-      padding: 1.35em;
-      flex-direction: column;
-      transition: all 0.4s ease;
-      top:50%;
-      transform:translateY(-30%);
-      // transition-delay: 0.3s;
-      // transition-property: bottom;
-
-      h3{
-        margin-bottom: 0;
-      }
-
-      p{
-        font-size: 15px;
-        color: #666;
-      }
-
-      .todo-action{
-        margin-top: 2em;
-        justify-content: flex-end;
-      }
-    }
-
-    &:hover{
-      .todo-front{
-        background-color: #fafafa;
-
-        &.dragging{
-          background-color: #fff;
-        }
-      }
-
-      // .todo-content{
-      //   filter: blur(0px);
-      // }
-      
-      // .task-date{
-      //   opacity: 1;
-      //   visibility: visible;
-      //   transform: translateY(-50%) translateX(120%);
-      //   filter: blur(0px);
-      // }
-
-      .todo-drag{
-        opacity: 1;
-      }
-    }
-  }
 }
 
 .todo-edit{
@@ -353,7 +146,7 @@ a {
   }
 
   .todo-confirm{
-    transform: translateY(-50%) !important;
+    // transform: translateY(-50%) !important;
     // bottom: 0 !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -410,6 +203,24 @@ a {
 
   &:focus{
     background-color: rgba(255,0,0,.2);
+  }
+}
+
+.btn-black{
+  display: inline-block;
+  border: none;
+  border-radius: 50px;
+  background-color: #212121;
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  padding: .85rem 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover{
+    background-color: #313131;
   }
 }
 

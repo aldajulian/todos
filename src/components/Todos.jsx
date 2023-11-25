@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo } from 'react'
 import { useAtom } from 'jotai'
-import { todos_atoms } from '../utils/store'
+import { todos_atoms, setting_atoms } from '../utils/store'
 import Header from './Header'
 import Item from './todos/Item'
 import { isEmpty } from 'lodash'
@@ -21,11 +21,13 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import {restrictToVerticalAxis, restrictToWindowEdges} from '@dnd-kit/modifiers'
+import { AnimatePresence } from 'framer-motion'
 
 let contentIn, contentOut;
 
 export default function Todos() {
   const [todos, setTodos] = useAtom(todos_atoms)
+  const [settings, setSettings] = useAtom(setting_atoms)
   const [dynamicClass, setDynamicClass] = useState([])
   const [dynamicContent, setDynamicContent] = useState([])
   const [active, setActive] = useState(null);
@@ -93,7 +95,7 @@ export default function Todos() {
   }
 
   return (
-    <>
+    <div className='todos'>
       <Header 
         dynamicClass={dynamicClass}
         dynamicContent={dynamicContent}
@@ -117,15 +119,17 @@ export default function Todos() {
               items={open_todos}
               strategy={verticalListSortingStrategy}
             >
-              {open_todos.map(item => (
-                <Item
-                  key={item.uid}
-                  item={item}
-                  id={item}
-                  handleMessage={handleMessage}
-                />
-              ))}
-            </SortableContext>
+              <AnimatePresence>
+                {open_todos.map(item => (
+                  <Item
+                    key={item.uid}
+                    item={item}
+                    id={item}
+                    handleMessage={handleMessage}
+                  />
+                ))}
+                </AnimatePresence>
+              </SortableContext>
             <DragOverlay>
               {activeItem ? (
                 <Item item={active} id={active} extendClass='dragging' /> 
@@ -145,9 +149,6 @@ export default function Todos() {
               onDragStart={({ active }) => {
                 setActive(active.id)
               }}
-              // onDragMove={() => {
-              //   debugger
-              // }}
               modifiers={[restrictToVerticalAxis]}
             >
               <SortableContext 
@@ -160,7 +161,6 @@ export default function Todos() {
                     item={item}
                     id={item}
                     handleMessage={handleMessage}
-                    // setTodos={setTodos}
                   />
                 ))}
               </SortableContext>
@@ -175,6 +175,6 @@ export default function Todos() {
       )}
       <Toaster position="bottom-center" />
       <audio controls src={`default.mp3`} ref={audioElement} className="d-none" allow="autoplay"/>
-    </>
+    </div>
   )
 }
