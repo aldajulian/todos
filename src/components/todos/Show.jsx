@@ -50,7 +50,14 @@ const Show = ({
           className="todo-content"
           onClick={() => handleActive(item, setNodeRef)}
         >
-          {item.name}
+          <motion.span
+            layout="position"
+            className="todo-name-done"
+            initial={{ textDecoration: "none" }}
+            animate={{ textDecoration: item.done ? "line-through" : "none" }}
+          >
+            {item.name}
+          </motion.span>
           {item.notes && (
             <motion.p className="todo-prev-notes">{item.notes}</motion.p>
           )}

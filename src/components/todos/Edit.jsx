@@ -70,7 +70,13 @@ const Edit = ({
               rows={1}
             />
             {activeTodo ? (
-              <>
+              <motion.div
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.15 }}
+              >
                 <motion.textarea
                   layout
                   ref={noteRef}
@@ -109,7 +115,7 @@ const Edit = ({
                     )}
                   </div>
                 </motion.div>
-              </>
+              </motion.div>
             ) : null}
           </div>
         </motion.div>

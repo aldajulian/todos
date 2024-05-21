@@ -33,6 +33,7 @@
   margin: 0;
   font-family: var(--default-font);
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 html,
@@ -250,6 +251,7 @@ a {
 .overlay {
   @include overlay;
   backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
   background-color: rgba(0, 0, 0, 0.15);
   z-index: 5;
 }
@@ -258,6 +260,7 @@ a {
   @include overlay;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   z-index: 5;
   opacity: 0;
 }

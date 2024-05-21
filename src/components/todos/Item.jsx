@@ -86,7 +86,6 @@ const Item = ({
     let newTodos = [...todos];
     let index = newTodos.indexOf(item);
 
-    console.log(newTodos, item, index);
     if (index !== -1) {
       newTodos.splice(index, 1);
       setTodos(newTodos);
