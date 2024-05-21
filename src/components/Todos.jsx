@@ -38,8 +38,8 @@ export default function Todos() {
   const [active, setActive] = useState(null);
   const audioElement = useRef();
 
-  let open_todos = todos.filter((todo) => !todo.done);
-  let completed_todos = todos.filter((todo) => todo.done);
+  // let open_todos = todos.filter((todo) => !todo.done);
+  // let completed_todos = todos.filter((todo) => todo.done);
 
   const activeItem = useMemo(
     () => todos.find((item) => item.id === active?.id),
@@ -104,6 +104,8 @@ export default function Todos() {
     }
   }
 
+  console.log("huahahaha", activeTodo);
+
   return (
     <div className="todos">
       <Header
@@ -114,7 +116,7 @@ export default function Todos() {
       />
       <div>
         <div className="todo-list">
-          {!open_todos.length && (
+          {!todos.length && (
             <div className="placeholder">Your task will be appear here</div>
           )}
           <DndContext
@@ -126,11 +128,11 @@ export default function Todos() {
             }}
           >
             <SortableContext
-              items={open_todos}
+              items={todos}
               strategy={verticalListSortingStrategy}
             >
               {/* <AnimatePresence> */}
-              {open_todos.map((item) => (
+              {todos.map((item) => (
                 <Item
                   key={item.uid}
                   item={item}
@@ -150,7 +152,7 @@ export default function Todos() {
           </DndContext>
         </div>
       </div>
-      {!isEmpty(completed_todos) && (
+      {/* {!isEmpty(completed_todos) && (
         <div className="todos-completed">
           <p className="text-scnd">Completed Todos</p>
           <div className="todo-list">
@@ -173,8 +175,6 @@ export default function Todos() {
                     item={item}
                     id={item}
                     handleMessage={handleMessage}
-                    activeTodo={activeTodo}
-                    setActiveTodo={setActiveTodo}
                   />
                 ))}
               </SortableContext>
@@ -186,25 +186,17 @@ export default function Todos() {
             </DndContext>
           </div>
         </div>
-      )}
+      )} */}
 
       <AnimatePresence>
         {activeTodo ? (
           <>
-            {/* <Edit
-              item={activeTodo}
-              activeTodo={activeTodo}
-              handleActive={setActiveTodo}
-              handleMessage={handleMessage}
-              // handleAction={handleAction}
-              // handleDelete={handleDelete}
-            /> */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="overlay"
-              onClick={() => setActiveTodo("")}
+              onClick={() => setActiveTodo(null)}
             />
           </>
         ) : null}

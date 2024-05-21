@@ -14,6 +14,11 @@
   }
 }
 
+.todo-active {
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.05) 0px 4px 10px;
+}
+
 .todo-edit {
   position: fixed;
   display: flex;
@@ -27,6 +32,7 @@
   z-index: 10;
   max-width: 640px;
   margin: 0 auto;
+  pointer-events: initial !important;
 }
 
 .todo-item {
@@ -59,7 +65,7 @@
     // position: relative;
     padding: 0 0 0 0.75rem;
     background-color: var(--todo-bg);
-    gap: 0.5em;
+    gap: 0.85em;
     border-radius: 10px;
     // border: solid 1px #eee;
     user-select: none;
@@ -74,6 +80,13 @@
     }
   }
 
+  .todo-radio-wrapper {
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+  }
+
   .todo-radio {
     display: flex;
     flex: 0 0 auto;
@@ -86,7 +99,7 @@
     justify-content: center;
     cursor: pointer;
     // transition: all 0.3s ease;
-    margin-top: 0.75rem;
+    // margin-top: 0.75rem;
 
     &:hover {
       border-color: #aaa;
@@ -95,17 +108,10 @@
   }
 
   .todo-box {
-    position: relative;
+    // position: relative;
     display: flex;
     flex: 1 1 0;
-
-    &:before {
-      content: "";
-      border-bottom: solid 1px rgba(0, 0, 0, 0.05);
-      width: 100%;
-      position: absolute;
-      bottom: 0;
-    }
+    border-bottom: solid 1px rgba(0, 0, 0, 0.05);
 
     &:hover {
       &:before {
@@ -171,7 +177,7 @@
     position: relative;
     cursor: default;
     display: flex;
-    gap: 0.75em;
+    gap: 0.65em;
     padding: 0.35rem 1rem;
     border-radius: var(--item-border-radius);
     background-color: var(--todo-bg);
@@ -205,12 +211,14 @@
 
     .todo-name {
       margin-top: -3px;
-      font-size: 16px;
+      width: 90%;
+      font-size: 15px;
     }
 
     .todo-notes {
       color: #666;
-      font-size: 16px;
+      width: 90%;
+      font-size: 15px;
     }
   }
 

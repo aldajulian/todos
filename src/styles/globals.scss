@@ -243,22 +243,22 @@ a {
   right: 0;
   bottom: 0;
   left: 0;
-  transition: all 0.3s ease;
+  opacity: 0;
   // visibility: hidden;
 }
 
 .overlay {
   @include overlay;
-  // backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(10px);
   background-color: rgba(0, 0, 0, 0.15);
-  z-index: 9;
+  z-index: 5;
 }
 
 .modal-bg {
   @include overlay;
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: saturate(180%) blur(20px);
-  z-index: 9;
+  z-index: 5;
   opacity: 0;
 }
 

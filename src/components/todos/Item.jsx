@@ -102,7 +102,7 @@ const Item = ({
           key={item.id}
           id={item.id}
           ref={setNodeRef}
-          transition={spring}
+          // transition={spring}
           // className={`todo-item ${ && "todo-open"}`}
           className="todo-item"
         >

@@ -49,13 +49,15 @@ const Edit = ({
         }`}
       >
         <motion.div className="todo-form" layoutId={activeTodo?.uid}>
-          <motion.span
-            layout
-            className="todo-radio"
-            onClick={() => handleAction(item.uid, "done")}
-          >
-            {item.done && <Mark />}
-          </motion.span>
+          <motion.div layout className="todo-radio-wrapper">
+            <motion.span
+              layout
+              className="todo-radio"
+              onClick={() => handleAction(item.uid, "done")}
+            >
+              {item.done && <Mark />}
+            </motion.span>
+          </motion.div>
           <div className="todo-content">
             <motion.textarea
               layout
@@ -63,7 +65,6 @@ const Edit = ({
               value={name}
               onChange={handleChange}
               className="todo-name"
-              autoFocus="autofocus"
               maxLength="130"
               name="todo-name"
               rows={1}
